@@ -883,7 +883,6 @@ ul { list-style: none; padding: 0; }
    to the date→headline gap above it: each element carries its own half-leading,
    so equal margin values would NOT produce equal optical gaps. */
 .post__body {
-  max-width: 680px;
   margin-top: 0.45rem;
 }
 
@@ -896,6 +895,8 @@ ul { list-style: none; padding: 0; }
 
 /* Blue shape panel holding the event detail */
 .post__panel {
+  /* Events without a photo keep the narrow text measure they had before. */
+  max-width: 680px;
   margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
   padding: clamp(2rem, 4vw, 3rem);
   color: var(--white);
@@ -962,7 +963,10 @@ ul { list-style: none; padding: 0; }
    without a photo keep the plain single column panel.
    To resize the photo, change --post-photo-w. Nothing else needs touching. */
 .post__panel--media {
-  --post-photo-w: 240px;
+  --post-photo-w: 340px;
+  /* With a photo the panel runs the full content width, so the text still has
+     a comfortable measure next to it. */
+  max-width: none;
   display: grid;
   grid-template-columns: var(--post-photo-w) minmax(0, 1fr);
   gap: clamp(1.5rem, 3vw, 2rem);
