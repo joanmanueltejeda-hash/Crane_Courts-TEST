@@ -895,8 +895,16 @@ ul { list-style: none; padding: 0; }
 
 /* Blue shape panel holding the event detail */
 .post__panel {
-  /* Events without a photo keep the narrow text measure they had before. */
-  max-width: 680px;
+  /* Three values drive the whole panel, for both variants:
+     --post-panel-w   width of a panel WITH a photo
+     --post-photo-w   fixed width of the photo
+     --post-inset     padding on all sides and the gap to the text
+     A panel without a photo is exactly as wide as the text column of a panel
+     with one, so the calc below subtracts photo, gap and padding. */
+  --post-panel-w: 70%;
+  --post-photo-w: 340px;
+  --post-inset: clamp(1.5rem, 3vw, 2rem);
+  max-width: calc(var(--post-panel-w) - var(--post-photo-w) - 3 * var(--post-inset));
   margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
   padding: clamp(2rem, 4vw, 3rem);
   color: var(--white);
@@ -963,13 +971,7 @@ ul { list-style: none; padding: 0; }
    without a photo keep the plain single column panel.
    To resize the photo, change --post-photo-w. Nothing else needs touching. */
 .post__panel--media {
-  --post-photo-w: 340px;
-  /* 70% of the content width: wide enough for photo plus text side by side,
-     without the panel running the full width of the page. */
-  max-width: 70%;
-  /* One value for all four sides and for the gap, so the distance from the
-     photo to the text is the same as the distance to the panel edges. */
-  --post-inset: clamp(1.5rem, 3vw, 2rem);
+  max-width: var(--post-panel-w);
   padding: var(--post-inset);
   display: grid;
   grid-template-columns: var(--post-photo-w) minmax(0, 1fr);
@@ -1294,7 +1296,9 @@ ul { list-style: none; padding: 0; }
 
 @media (max-width: 900px) {
 
-  /* Not enough room left to give up 30% of the width, panel goes full width. */
+  /* Not enough room left to hold the desktop proportions, both panel variants
+     use the full content width from here down. */
+  .post__panel,
   .post__panel--media { max-width: none; }
 
   .post__panel {
