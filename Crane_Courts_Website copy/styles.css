@@ -964,9 +964,9 @@ ul { list-style: none; padding: 0; }
    To resize the photo, change --post-photo-w. Nothing else needs touching. */
 .post__panel--media {
   --post-photo-w: 340px;
-  /* With a photo the panel runs the full content width, so the text still has
-     a comfortable measure next to it. */
-  max-width: none;
+  /* 70% of the content width: wide enough for photo plus text side by side,
+     without the panel running the full width of the page. */
+  max-width: 70%;
   display: grid;
   grid-template-columns: var(--post-photo-w) minmax(0, 1fr);
   gap: clamp(1.5rem, 3vw, 2rem);
@@ -979,7 +979,12 @@ ul { list-style: none; padding: 0; }
   margin-top: 0;
 }
 
+/* Only the width is fixed. The height follows whatever proportion the client
+   uploads, so photos are never cropped. */
 .post__panel--media .post__media img {
+  aspect-ratio: auto;
+  height: auto;
+  object-fit: fill;
   border-radius: 24px;
 }
 
@@ -1284,6 +1289,10 @@ ul { list-style: none; padding: 0; }
    -------------------------------------------------------------------------- */
 
 @media (max-width: 900px) {
+
+  /* Not enough room left to give up 30% of the width, panel goes full width. */
+  .post__panel--media { max-width: none; }
+
   .post__panel {
     /* The exported shape distorts badly when squashed — solid blue instead */
     background-image: none;
