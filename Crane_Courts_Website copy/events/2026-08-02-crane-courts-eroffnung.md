@@ -4,7 +4,6 @@ date: 2026-08-02
 time: 11:00
 lead: "Es ist soweit: Crane Courts öffnet seine Türen und wir laden euch
   herzlich zur Eröffnungsfeier ein!"
-image: /Images/Events/mivisionlogow-02.png
 highlights:
   - Frei Getränke
   - Gewinnspiele
