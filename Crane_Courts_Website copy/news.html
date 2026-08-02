@@ -8,6 +8,8 @@ permalink: /news.html
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>News – Crane Courts</title>
 <meta name="description" content="Alle Neuigkeiten rund um Crane Courts: Updates zum Padelplatz und anstehende Events in Kranenburg.">
+<link rel="icon" type="image/png" sizes="512x512" href="Images/CraneCourts_Favicon.png">
+<link rel="apple-touch-icon" href="Images/CraneCourts_AppleTouch.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -61,7 +63,7 @@ permalink: /news.html
   </section>
 
   {%- for event in collections.events %}
-  <article class="post{% if event.data.image %} post--media{% endif %}">
+  <article class="post">
     <div class="wrap">
 
       <p class="post__date">
@@ -76,37 +78,34 @@ permalink: /news.html
           </p>
         {%- endif %}
 
-          <div class="post__panel{% if event.data.image %} post__panel--media{% endif %}">
+        {%- if event.data.image %}
+          <figure class="post__media">
+            <img src="{{ event.data.image }}"
+                 alt="{{ event.data.imageAlt if event.data.imageAlt else event.data.title }}" loading="lazy">
+          </figure>
+        {%- endif %}
 
-            {%- if event.data.image %}
-            <figure class="post__media">
-              <img src="{{ event.data.image }}"
-                   alt="{{ event.data.imageAlt if event.data.imageAlt else event.data.title }}" loading="lazy">
-            </figure>
+          <div class="post__panel">
+            {{ event.templateContent | safe }}
+
+            {%- if event.data.highlights %}
+            <ul class="post__list">
+              {%- for item in event.data.highlights %}
+              <li>{{ item }}</li>
+              {%- endfor %}
+            </ul>
             {%- endif %}
 
-            <div class="post__panel-body">
-              {{ event.templateContent | safe }}
-
-              {%- if event.data.highlights %}
-              <ul class="post__list">
-                {%- for item in event.data.highlights %}
-                <li>{{ item }}</li>
-                {%- endfor %}
-              </ul>
+            <div class="post__meta">
+              <p><time datetime="{{ event.data.date | dateISO }}{% if event.data.time %}T{{ event.data.time }}{% endif %}">{{ event.data.date | dateShort }}{% if event.data.time %} – Beginn um {{ event.data.time }}{% endif %}</time></p>
+              {%- if event.data.address %}
+              <p>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query={{ event.data.address | urlencode }}"
+                   target="_blank" rel="noopener">
+                  {{ event.data.address }}
+                </a>
+              </p>
               {%- endif %}
-
-              <div class="post__meta">
-                <p><time datetime="{{ event.data.date | dateISO }}{% if event.data.time %}T{{ event.data.time }}{% endif %}">{{ event.data.date | dateShort }}{% if event.data.time %} – Beginn um {{ event.data.time }}{% endif %}</time></p>
-                {%- if event.data.address %}
-                <p>
-                  <a href="https://www.google.com/maps/search/?api=1&amp;query={{ event.data.address | urlencode }}"
-                     target="_blank" rel="noopener">
-                    {{ event.data.address }}&nbsp;↗
-                  </a>
-                </p>
-                {%- endif %}
-              </div>
             </div>
           </div>
       </div>
