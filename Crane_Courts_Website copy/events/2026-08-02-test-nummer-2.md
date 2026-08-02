@@ -1,7 +1,7 @@
 ---
 title: Test Nummer 2
 date: 2026-08-19
-time: 15:30
+time: 15:30 - 20:00
 lead: Hallo, hier ein weiterer test um zu gucken wie das ganze hier so läuft
 image: /Images/Events/dsc4133.jpg
 imageAlt: Nice Padel
