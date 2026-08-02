@@ -10,9 +10,9 @@ highlights:
   - Musik
 address: Am Sportzentrum 4, 47559 Kranenburg
 ---
-**Erlebt unseren brandneuen Padelplatz beim Open Court!**  
-**Schnappt euch einen Schläger und spielt einfach drauflos!**  
-**Dazu gibt's Getränke auf's Haus, gute Stimmung und die perfekte Gelegenheit, Crane Courts und die Community kennenzulernen.**
+Erlebt unseren brandneuen Padelplatz beim Open Court!  
+Schnappt euch einen Schläger und spielt einfach drauflos!  
+Dazu gibt's Getränke auf's Haus, gute Stimmung und die perfekte Gelegenheit, Crane Courts und die Community kennenzulernen.
 
-**Bringt gute Laune und eure Freunde mit!**  
-**Wir sehen uns auf dem Court!**
+Bringt gute Laune und eure Freunde mit!  
+Wir sehen uns auf dem Court!
