@@ -9,6 +9,7 @@ highlights:
   - Padel spielen
   - Padel Training
   - Spaß haben
+  - Grillen
 address: Am Sportzentrum 4, 47559 Kranenburg
 ---
 Hallo,
