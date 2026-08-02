@@ -1,0 +1,71 @@
+# Pages CMS: Konfiguration für crane courts padel
+
+media:
+  input: "Crane_Courts_Website copy/Images/Events"
+  output: /Images/Events
+  categories: [image]
+  rename: safe
+
+content:
+  - name: events
+    label: Events
+    type: collection
+    path: "Crane_Courts_Website copy/events"
+    exclude: [events.json]
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date]
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+
+      - name: date
+        label: Datum
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+
+      - name: time
+        label: Uhrzeit
+        type: string
+        default: "11:00"
+        description: Format 11:00. Leer lassen, wenn keine Uhrzeit angezeigt werden soll.
+
+      - name: lead
+        label: Einleitung
+        type: text
+        description: Ein bis zwei Sätze, stehen groß über dem blauen Kasten.
+
+      - name: image
+        label: Foto
+        type: image
+        description: Querformat, mindestens 1200 Pixel breit. Optional.
+
+      - name: imageAlt
+        label: Bildbeschreibung
+        type: string
+        description: Kurz beschreiben, was auf dem Foto zu sehen ist.
+
+      - name: highlights
+        label: Programmpunkte
+        type: string
+        list: true
+        description: Je ein Punkt pro Zeile, erscheinen als Liste im blauen Kasten.
+
+      - name: address
+        label: Adresse
+        type: string
+        default: Am Sportzentrum 4, 47559 Kranenburg
+        description: Wird automatisch mit Google Maps verlinkt.
+
+      - name: body
+        label: Text
+        type: rich-text
+        description: Der Fließtext im blauen Kasten.
