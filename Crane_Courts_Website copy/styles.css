@@ -936,45 +936,46 @@ ul { list-style: none; padding: 0; }
   color: var(--easy-yellow);
 }
 
-/* Address reads as a link at a glance, like the booking links: underlined,
-   with the same ↗ the „Platz buchen“ links carry. The underline is the resting
-   state here, so hovering drops it. */
-.post__meta a {
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
-  text-decoration-thickness: 0.06em;
-}
-
-.post__meta a:hover,
-.post__meta a:focus-visible { text-decoration: none; }
+.post__meta a { text-decoration: none; }
+.post__meta a:hover { text-decoration: underline; }
 
 /* Several events under each other: the list keeps one full section padding at
    the top and bottom, neighbouring events share a single gap. */
 .post + .post { padding-top: 0; }
 
-/* Event photo. Lives INSIDE the blue panel: picture left, text right. Only
-   events that actually carry a photo get the two column treatment, everything
-   else keeps the single text column exactly as before. The wider measure below
-   buys the text column back the room the picture takes. */
-.post--media .post__body { max-width: 980px; }
-
-.post__panel--media {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  align-items: start;
+/* Event photo. Sits between the lead and the blue panel, same measure as the
+   text column (.post__body), radius matched to the panel below it. */
+.post__media {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
 }
 
-.post__media { margin: 0; }
-
-/* No fixed aspect ratio: the client uploads whatever they have and nothing is
-   cropped, except very tall portraits, which are capped by max-height. */
 .post__media img {
   display: block;
   width: 100%;
-  height: auto;
-  max-height: 30rem;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
+  border-radius: 40px;
+}
+
+/* Event with a photo: the photo sits inside the blue panel as a fixed width
+   column on the left, the event text runs beside it on the right. Events
+   without a photo keep the plain single column panel.
+   To resize the photo, change --post-photo-w. Nothing else needs touching. */
+.post__panel--media {
+  --post-photo-w: 240px;
+  display: grid;
+  grid-template-columns: var(--post-photo-w) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2rem);
+  align-items: start;
+}
+
+/* Inside the panel the photo carries no top margin and gets the smaller
+   radius, so it reads as part of the panel instead of a block above it. */
+.post__panel--media .post__media {
+  margin-top: 0;
+}
+
+.post__panel--media .post__media img {
   border-radius: 24px;
 }
 
@@ -1285,8 +1286,7 @@ ul { list-style: none; padding: 0; }
     border-radius: 32px;
   }
 
-  /* Panel too narrow for two columns: photo on top, text below */
-  .post__panel--media { grid-template-columns: minmax(0, 1fr); }
+  .post__media img { border-radius: 32px; }
 
   .strip__grid {
     grid-template-columns: minmax(0, 1fr);
@@ -1315,6 +1315,12 @@ ul { list-style: none; padding: 0; }
 }
 
 @media (max-width: 760px) {
+
+  /* Too narrow for two columns: photo goes above the text, full width. */
+  .post__panel--media {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   /* Desktop section padding leaves a lot of empty scroll on a phone —
      tighten the vertical rhythm site-wide via the token. */
   :root {
@@ -1427,6 +1433,8 @@ ul { list-style: none; padding: 0; }
     padding: 1.5rem 1.25rem;
     border-radius: 24px;
   }
+
+  .post__media img { border-radius: 24px; }
 
   .partner__media img,
   .vision__media img,
