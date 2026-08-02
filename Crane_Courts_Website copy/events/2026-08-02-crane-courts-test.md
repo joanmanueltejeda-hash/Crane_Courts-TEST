@@ -3,7 +3,7 @@ title: Crane Courts Test
 date: 2026-08-06
 time: 14:00
 lead: Test von CMS :)
-image: /Images/Events/chatgpt-image-jul-8-2026-033047-am.png
+image: /Images/Events/dsc4173.jpg
 imageAlt: Hallo, geht des hier?
 highlights:
   - Padel spielen
