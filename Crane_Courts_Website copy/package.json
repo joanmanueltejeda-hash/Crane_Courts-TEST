@@ -1,0 +1,14 @@
+{
+  "name": "crane-courts-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Crane Courts website. Static pages plus an events folder that feeds the News page.",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "markdown-it": "^14.1.0"
+  }
+}

@@ -1,0 +1,1 @@
+Hier landen die Event-Fotos, die im CMS hochgeladen werden. Datei nicht loeschen, sie haelt den Ordner im Repo.

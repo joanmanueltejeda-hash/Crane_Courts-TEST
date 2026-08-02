@@ -1,0 +1,165 @@
+---
+permalink: /news.html
+---
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News – Crane Courts</title>
+<meta name="description" content="Alle Neuigkeiten rund um Crane Courts: Updates zum Padelplatz und anstehende Events in Kranenburg.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- TODO: replace every PLAYTOMIC_URL with your club's Playtomic booking link -->
+
+<!-- Die Events auf dieser Seite kommen aus dem Ordner "events". Jede Datei
+     dort ist ein Event und wird über Pages CMS gepflegt. Am Aufbau unten
+     nichts ändern, sonst bricht die Ausgabe. -->
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+
+    <a class="site-header__logo" href="index.html">
+      <img src="Images/CraneCourts_Logo_Weiss.svg"
+           alt="Crane Courts" width="201" height="114">
+    </a>
+
+    <input class="nav-toggle" type="checkbox" id="nav-toggle">
+    <label class="nav-toggle__label" for="nav-toggle">
+      <span></span>
+      <span class="visually-hidden">Menü öffnen</span>
+    </label>
+
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="news.html" aria-current="page">News</a></li>
+        <li>
+          <a class="is-booking" href="PLAYTOMIC_URL" target="_blank" rel="noopener">
+            Platz buchen ↗
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="wrap">
+      <h1 class="page-head__title">News</h1>
+      <p class="page-head__sub">
+        Alle Neuigkeiten auf einen Blick!<br>
+        Updates zum Court sowie zu anstehenden Events findest du hier.
+      </p>
+    </div>
+  </section>
+
+  {%- for event in collections.events %}
+  <article class="post">
+    <div class="wrap">
+
+      <p class="post__date">
+        <time datetime="{{ event.data.date | dateISO }}{% if event.data.time %}T{{ event.data.time }}{% endif %}">{{ event.data.date | dateLong }}{% if event.data.time %} – {{ event.data.time }}{% endif %}</time>
+      </p>
+      <h2 class="post__title">{{ event.data.title }}</h2>
+
+      <div class="post__body">
+        {%- if event.data.lead %}
+          <p class="post__lead">
+            {{ event.data.lead }}
+          </p>
+        {%- endif %}
+
+        {%- if event.data.image %}
+          <figure class="post__media">
+            <img src="{{ event.data.image }}"
+                 alt="{{ event.data.imageAlt if event.data.imageAlt else event.data.title }}" loading="lazy">
+          </figure>
+        {%- endif %}
+
+          <div class="post__panel">
+            {{ event.templateContent | safe }}
+
+            {%- if event.data.highlights %}
+            <ul class="post__list">
+              {%- for item in event.data.highlights %}
+              <li>{{ item }}</li>
+              {%- endfor %}
+            </ul>
+            {%- endif %}
+
+            <div class="post__meta">
+              <p><time datetime="{{ event.data.date | dateISO }}{% if event.data.time %}T{{ event.data.time }}{% endif %}">{{ event.data.date | dateShort }}{% if event.data.time %} – Beginn um {{ event.data.time }}{% endif %}</time></p>
+              {%- if event.data.address %}
+              <p>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query={{ event.data.address | urlencode }}"
+                   target="_blank" rel="noopener">
+                  {{ event.data.address }}
+                </a>
+              </p>
+              {%- endif %}
+            </div>
+          </div>
+      </div>
+    </div>
+  </article>
+  {%- else %}
+  <section class="post">
+    <div class="wrap">
+      <div class="post__body">
+        <p class="post__lead">
+          Gerade steht kein Event an. Schau bald wieder vorbei oder buch dir
+          einfach einen Platz.
+        </p>
+      </div>
+    </div>
+  </section>
+  {%- endfor %}
+
+  <section class="booking-band">
+    <div class="wrap">
+      <h2 class="booking-band__title">Überzeug dich selbst.</h2>
+      <p class="booking-band__text">
+        Buch dir einen Platz und lern uns kennen<br>
+        wir freuen uns auf dich.
+      </p>
+      <a class="btn" href="PLAYTOMIC_URL" target="_blank" rel="noopener">Platz buchen ↗</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+
+    <nav class="footer-nav" aria-label="Fußzeilennavigation">
+      <ul>
+        <li><a href="index.html">Start</a></li>
+        <li><a href="ueber-uns.html">Über uns</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="impressum.html#datenschutz">Datenschutzerklärung</a></li>
+        <li><a href="PLAYTOMIC_URL" target="_blank" rel="noopener">Platz buchen (Playtomic) ↗</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-footer__brand">
+      <img src="Images/CraneCourts_Logo_Weiss.svg"
+           alt="Crane Courts" width="176" height="70" loading="lazy">
+    </div>
+
+  </div>
+
+  <div class="site-footer__bottom">
+    <p>© 2026 Crane Courts Padel · <a href="impressum.html">Impressum</a> · <a href="impressum.html#datenschutz">Datenschutzerklärung</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

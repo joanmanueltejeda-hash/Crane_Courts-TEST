@@ -1,0 +1,1436 @@
+/* ==========================================================================
+   Crane Courts — shared stylesheet
+   Used by every subpage (index, ueber-uns, news, impressum).
+
+   ASSETS: all images live in the --asset-* vars below. They point at local
+   files in the Images folder, which sits next to this stylesheet. The ball
+   artwork lives one level deeper, in Images/Patterns. To swap an image, drop
+   the new file into the folder and change the path here. Filenames
+   are case sensitive on the live server, so Images/Hero.jpg is not the same
+   as images/hero.jpg.
+
+   TYPE: there is ONE type scale for the whole site, defined in :root as
+   --fs-*. No rule below sets a raw font-size except the nav. Change a token
+   and every page moves together.
+   ========================================================================== */
+
+/* Urbanist, self-hosted from /font — no requests to Google, so the
+   "Schriftarten" section of the Datenschutzerklärung is accurate.
+   Filenames assume the standard Google-Fonts "Download family" ZIP
+   (variable fonts, one file per style covering all weights 100–900).
+   If your files are named differently, only the two url() paths below
+   need to change. */
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("font/Urbanist-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Urbanist";
+  src: url("font/Urbanist-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* Brand colours */
+  --cool-blue: #13336d;
+  --easy-yellow: #fdc300;
+  --crane-gray: #a2acaa;
+  --steel-blue: #527ea1;
+  /* Pale blue-gray behind the Über-uns page head. Not in the brand palette —
+     taken straight from the frame (465:70). */
+  --mist-gray: #cddcde;
+  --white: #ffffff;
+
+  /* Type */
+  --font: "Urbanist", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ---- The site type scale ---------------------------------------------
+     Role                     max size   used by
+     display   page headline   76.8px    hero H1, "News"
+     h2        section head    34px      section headlines, post title
+     lead-lg   hero sub        30.4px    line under the landing hero H1
+     lead      secondary       22px      post lead, strip headings, page-head sub
+     body-lg   emphasised      19.2px    event list, band text, about copy
+     eyebrow   label           20.8px    "Willkommen bei…", post date
+     body      running text    16px      all paragraphs
+     btn       buttons         20.8px
+     nav       menu bar        22.2px    (deliberately outside the scale)   */
+
+  --fs-display: clamp(2.4rem, 6.4vw, 4.8rem);
+  --fs-h2:      clamp(1.6rem, 3.2vw, 2.125rem);
+  --fs-lead-lg: clamp(1rem, 2vw, 1.9rem);
+  --fs-lead:    clamp(1.05rem, 1.9vw, 1.375rem);
+  --fs-body-lg: 1.2rem;
+  --fs-eyebrow: clamp(1.05rem, 1.6vw, 1.3rem);
+  --fs-body:    1rem;
+  --fs-btn:     1.3rem;
+  --fs-nav:     1.3875rem;
+
+  /* Layout */
+  --wrap: 1200px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-pad: clamp(4.5rem, 10vw, 8.5rem);
+
+  /* Ball pattern crop in the yellow band — see .page-head::before */
+  --pattern-zoom: 305%;
+  --pattern-x: 9%;
+  --pattern-y: 40%;
+
+  /* Hero balls: two single balls pinned to the hero's right edge (one top,
+     one bottom). All numbers are proportions of the hero itself, measured
+     from the design screenshot, so the layout scales identically at every
+     window size. Size is the ball diameter as a share of the hero's HEIGHT;
+     the overhangs are shares of the ball's own size. */
+  --hero-pattern-opacity: 1;
+  --hero-ball-size: 60.5%;            /* of hero height, both balls */
+  --hero-ball-top-offset: 2.8%;       /* of hero height, gap below the header */
+  --hero-ball-top-overhang: 19.8%;    /* of ball size, hangs off the right edge */
+  --hero-ball-bottom-inset: 3.7%;     /* of hero width, in from the right edge */
+  --hero-ball-bottom-overhang: 54.8%; /* of ball size, dips below the bottom */
+
+  --field-pattern-opacity: 0.45;
+  --field-pattern-x: 12.55%;
+  --field-pattern-y: -173.3%;
+  --field-pattern-w: 234.9%;
+
+  /* Über-uns vision section. Unlike the two above, the artwork sits UNROTATED
+     in this frame, so .about-field__art paints it directly — no nested boxes.
+     Opacity matches the pale wash of the frame render (and the landing
+     pattern field) — tune to taste. */
+  --about-pattern-opacity: 0.45;
+  --about-pattern-x: -135%;
+  --about-pattern-y: -141%;
+  --about-pattern-w: 203%;
+
+  /* Assets — local files in the Images folder */
+  --asset-logo-weiss: url("Images/CraneCourts_Logo_Weiss.svg");
+  --asset-footer-brand: url("Images/CraneCourts_Logo_Weiss.svg");
+  --asset-footer-shape: url("Images/Patterns/Crane_Courts_Element_5_Cool_Blue.png");
+  --asset-pattern-gray: url("Images/Patterns/Crane_Courts_Elemente-35.png");
+  /* Crane Gray version of the ball art — for the mist page head (Über uns).
+     The regular --asset-pattern-gray is toned for the yellow band and renders
+     yellow on the mist field. */
+  --asset-pattern-crane-gray: url("Images/Patterns/Crane_Courts_Element_6_Crane_Gray_2.png");
+  --asset-pattern-blue: url("Images/Patterns/Crane_Courts_Element_6_Cool_Blue_2.png");
+  /* Cool Blue version of the ball art — for the LIGHT booking band, where the
+     regular band pattern (made for the blue field) doesn't read on white. */
+  --asset-pattern-cool-blue: url("Images/Patterns/Crane_Courts_Element_6_Cool_Blue.png");
+  --asset-hero-photo: url("Images/Hero.jpg");
+  --asset-hero-pattern: url("Images/Patterns/Crane_Courts_Elemente-11.png");
+  /* The hero's edge balls: two pre-cropped single balls, cut from
+     Crane_Courts_Element_4_Easy_Yellow.png. Both files go in Images/Patterns.
+     If they sit somewhere else, change only these two paths. */
+  --asset-hero-ball-top: url("Images/Patterns/Crane_Courts_Ball_Top_Easy_Yellow.png");
+  --asset-hero-ball-bottom: url("Images/Patterns/Crane_Courts_Ball_Bottom_Easy_Yellow.png");
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-weight: 500;
+  color: var(--cool-blue);
+  background: var(--white);
+  line-height: 1.4;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+a { color: inherit; }
+
+h1, h2, h3, p, ul { margin: 0; }
+
+/* Browsers ship figure with `margin: 1em 40px`. Left in, it insets every
+   photo by 40px a side, which shortens it and throws off anything aligned
+   to its bottom edge. */
+figure { margin: 0; }
+
+ul { list-style: none; padding: 0; }
+
+:where(a, button):focus-visible {
+  outline: 3px solid var(--easy-yellow);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Shared label above a headline */
+.eyebrow {
+  margin-bottom: 0.7rem;
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.068em;
+  line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-block;
+  padding: 0.875rem 2.2rem;
+  font-size: var(--fs-btn);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--cool-blue);
+  background: var(--easy-yellow);
+  border: 3px solid transparent;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.15s ease, filter 0.15s ease,
+              background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.btn--outline:hover {
+  background: var(--white);
+  color: var(--cool-blue);
+  filter: none;
+}
+
+.btn--blue {
+  background: var(--cool-blue);
+  color: var(--white);
+}
+
+/* --------------------------------------------------------------------------
+   Header  — nav sits outside the type scale on purpose
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  background: var(--cool-blue);
+}
+
+.site-header--overlay {
+  position: relative;
+  z-index: 2;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 114px;
+}
+
+.site-header__logo img {
+  width: 201px;
+  height: auto;
+}
+
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.1rem);
+}
+
+.main-nav a {
+  font-size: var(--fs-nav);
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.main-nav a:hover { color: var(--easy-yellow); }
+
+.main-nav a[aria-current="page"] { color: var(--easy-yellow); }
+
+.main-nav .is-booking { font-style: italic; }
+
+/* Mobile nav toggle — checkbox pattern, no JS needed */
+.nav-toggle { display: none; }
+
+.nav-toggle__label {
+  display: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--white);
+}
+
+.nav-toggle__label span,
+.nav-toggle__label span::before,
+.nav-toggle__label span::after {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: currentColor;
+  border-radius: 2px;
+  content: "";
+}
+
+.nav-toggle__label span { position: relative; }
+.nav-toggle__label span::before { position: absolute; top: -8px; }
+.nav-toggle__label span::after  { position: absolute; top: 8px; }
+
+/* Hamburger morphs into an X while the menu is open. The label only shows on
+   mobile, so none of this touches desktop. */
+.nav-toggle__label span { transition: background-color 0.15s ease; }
+
+.nav-toggle__label span::before,
+.nav-toggle__label span::after {
+  transition: top 0.15s ease, rotate 0.15s ease;
+}
+
+.nav-toggle:checked + .nav-toggle__label span { background: transparent; }
+.nav-toggle:checked + .nav-toggle__label span::before { top: 0; rotate: 45deg; }
+.nav-toggle:checked + .nav-toggle__label span::after  { top: 0; rotate: -45deg; }
+
+/* --------------------------------------------------------------------------
+   Hero (landing page)
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  align-content: center;
+  min-height: clamp(34rem, 78vh, 53rem);
+  padding-block: clamp(4rem, 9vw, 6.5rem);
+  text-align: center;
+  color: var(--white);
+  background: var(--cool-blue) var(--asset-hero-photo) center / cover no-repeat;
+}
+
+/* Cool Blue wash over the photo, exactly as in the Figma frame */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(19 51 109 / 0.55);
+}
+
+/* Two single balls pinned to the hero's right edge, cropped by the section's
+   overflow:hidden. Each pseudo element is a square and its image IS one ball
+   (pre-cropped file), so there is no zoom or position math that can break —
+   the image simply fills the box. */
+.hero__pattern {
+  position: absolute;
+  inset: 0;
+  opacity: var(--hero-pattern-opacity);
+  pointer-events: none;
+}
+
+/* Safety net: the artwork must only ever appear via the two pseudo elements
+   below. If a leftover <img> of the ball artwork is still sitting inside the
+   hero markup from an earlier attempt, this hides it. */
+.hero__pattern img,
+.hero > img { display: none; }
+
+.hero__pattern::before,
+.hero__pattern::after {
+  content: "";
+  position: absolute;
+  aspect-ratio: 1;
+  /* Height is set per ball below (a share of the hero's height); width
+     follows from the square aspect ratio. */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  /* No colour filter needed: the artwork is already saved in the brand
+     Easy Yellow #fdc300, so it matches the buttons and bands as is. */
+}
+
+/* Top-right ball, hanging off the right edge. The translate pushes it
+   sideways by a share of its own width, so the overhang stays proportional
+   at every size. */
+.hero__pattern::before {
+  top: var(--hero-ball-top-offset);
+  right: 0;
+  height: var(--hero-ball-size);
+  translate: var(--hero-ball-top-overhang) 0;
+  background-image: var(--asset-hero-ball-top);
+}
+
+/* Bottom-right ball, slightly in from the right, dipping below the bottom */
+.hero__pattern::after {
+  bottom: 0;
+  right: var(--hero-ball-bottom-inset);
+  height: var(--hero-ball-size);
+  translate: 0 var(--hero-ball-bottom-overhang);
+  background-image: var(--asset-hero-ball-bottom);
+}
+
+/* The pattern-field artwork keeps the original nested-box construction:
+   an outer box offset from the section, the art inside rotated 72.26°. */
+.pattern-field__art::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 89.1%;   /* 4020 / 4511 */
+  height: 70.7%;  /* 3450 / 4880 */
+  translate: -50% -50%;
+  rotate: 72.26deg;
+  background: var(--asset-hero-pattern) center / 100% 100% no-repeat;
+}
+
+.hero .wrap { position: relative; }
+
+.hero__eyebrow { color: var(--easy-yellow); }
+
+.hero__title {
+  font-size: var(--fs-display);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.0092em;
+  line-height: 1.06;
+}
+
+.hero__lead {
+  margin-top: clamp(1rem, 2.5vw, 1.6rem);
+  margin-inline: auto;
+  max-width: 34ch;
+  font-size: var(--fs-lead-lg);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.15;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: clamp(1.75rem, 4vw, 2.6rem);
+}
+
+.hero__closer {
+  margin-top: clamp(3rem, 8vw, 6rem);
+  margin-inline: auto;
+  max-width: 42ch;
+  font-size: var(--fs-lead);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+/* --------------------------------------------------------------------------
+   Yellow three-column strip
+   -------------------------------------------------------------------------- */
+
+.strip {
+  background: var(--easy-yellow);
+  color: var(--cool-blue);
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+}
+
+.strip__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.strip__heading {
+  margin-bottom: 0.6rem;
+  font-size: var(--fs-lead);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.strip__text {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   White section carrying the ball pattern (wraps intro + partner)
+   -------------------------------------------------------------------------- */
+
+.pattern-field {
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-field__art {
+  position: absolute;
+  left: var(--field-pattern-x);
+  top: var(--field-pattern-y);
+  width: var(--field-pattern-w);
+  aspect-ratio: 4511 / 4880;
+  opacity: var(--field-pattern-opacity);
+  pointer-events: none;
+}
+
+/* Ball-pattern pieces peeking in from the section's left and right edges.
+   Scaled up massively (one ball is roughly 400px on screen) so, together
+   with the sparse outer columns of the artwork, at most three balls peek
+   in per side; the rest is clipped by the field's overflow:hidden.
+   The PNG carries transparent margins (about 253px left, 370px right at
+   this scale), so the visible-width numbers below include that dead space. */
+.pattern-field__side {
+  position: absolute;
+  top: 50%;
+  width: 3200px;
+  aspect-ratio: 5245 / 4500;
+  background: var(--asset-hero-pattern) center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* Shows the artwork's RIGHT edge (370px of it is transparent margin) */
+.pattern-field__side--left {
+  left: 0;
+  translate: calc(-100% + 620px) -50%;
+}
+
+/* Shows the artwork's LEFT edge (253px of it is transparent margin) */
+.pattern-field__side--right {
+  right: 0;
+  translate: calc(100% - 500px) -50%;
+}
+
+/* Both sections carry a full --section-pad, so where they meet inside the
+   pattern field the gap doubles. Halve each side to match the Figma spacing. */
+.pattern-field > .intro {
+  /* Halved on both sides so the gaps to the training card above and the
+     partner section below come out identical. */
+  padding-top: clamp(2.5rem, 5.5vw, 5.4rem);
+  padding-bottom: clamp(2.5rem, 5.5vw, 5.4rem);
+}
+.pattern-field > .partner { padding-top: clamp(2.5rem, 5.5vw, 5.4rem); }
+
+.pattern-field > .training,
+.pattern-field > .steps,
+.pattern-field > .intro,
+.pattern-field > .partner {
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   Training section: a centred cool-blue card, styled like the shop-link
+   buttons (same blue, same rounded corners)
+   -------------------------------------------------------------------------- */
+
+.training {
+  padding-top: var(--section-pad);
+  padding-bottom: clamp(2.5rem, 5.5vw, 5.4rem);
+}
+
+.training__card {
+  margin-inline: auto;
+  max-width: 44rem;
+  padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.5rem, 4.5vw, 3rem);
+  background: var(--cool-blue);
+  border-radius: 17px;
+  text-align: center;
+}
+
+/* Same type treatment as the intro title — yellow on blue */
+.training__title {
+  margin-inline: auto;
+  max-width: 20ch;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.0125em;
+  line-height: 1.2;
+  color: var(--easy-yellow);
+}
+
+/* One step down the scale from the h2 headline */
+.training__hours {
+  margin-top: 0.35rem;
+  font-size: var(--fs-lead-lg);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--easy-yellow);
+}
+
+.training__text {
+  margin-top: 0.9rem;
+  margin-inline: auto;
+  max-width: 48ch;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--white);
+  /* Evens out the line lengths so the last line never ends up as a
+     single orphan word, independent of the font that renders it. */
+  text-wrap: balance;
+}
+
+/* --------------------------------------------------------------------------
+   Booking steps: left-aligned headline above a yellow box with blue text
+   -------------------------------------------------------------------------- */
+
+.steps {
+  padding-bottom: clamp(2.5rem, 5.5vw, 5.4rem);
+}
+
+/* Same type treatment and size as the intro title, but left-aligned.
+   Title and box share the blue training card's 44rem width and centring
+   so the two boxes line up. */
+.steps__title {
+  margin-inline: auto;
+  max-width: 44rem;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.0125em;
+  line-height: 1.2;
+}
+
+.steps__box {
+  margin-top: clamp(1rem, 2.5vw, 1.5rem);
+  margin-inline: auto;
+  max-width: 44rem;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem) clamp(1.5rem, 4vw, 3rem);
+  background: var(--easy-yellow);
+  border-radius: 17px;
+  color: var(--cool-blue);
+  text-align: left;
+}
+
+.steps__box p {
+  font-size: var(--fs-body-lg);
+  font-weight: 600;
+  line-height: 1.9;
+}
+
+/* --------------------------------------------------------------------------
+   Centred intro section
+   -------------------------------------------------------------------------- */
+
+.intro {
+  padding-block: var(--section-pad);
+  text-align: center;
+}
+
+.intro__title {
+  margin-inline: auto;
+  max-width: 20ch;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.0125em;
+  line-height: 1.2;
+}
+
+.intro__text {
+  margin-top: 0.45rem;
+  margin-inline: auto;
+  max-width: 62ch;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.intro .btn { margin-top: clamp(1.75rem, 4vw, 2.5rem); }
+
+/* --------------------------------------------------------------------------
+   Partner section
+   -------------------------------------------------------------------------- */
+
+.partner {
+  padding-block: var(--section-pad);
+}
+
+.partner__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 630px) minmax(0, 492px);
+  justify-content: space-between;
+  align-items: stretch;
+  gap: clamp(1.25rem, 3vw, 2.75rem);
+}
+
+.partner__media { align-self: start; }
+
+/* Column stretches to the photo's height so the buttons can be pinned
+   flush with its bottom edge */
+.partner__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* reserves space for the absolutely positioned button row below */
+  padding-bottom: 150px;
+}
+
+/* Taken out of flow on purpose. In flow, the buttons add their own height to
+   the column, and once the column outgrows the photo the grid row grows with
+   it and the alignment breaks. Out of flow they can't affect the row height,
+   so bottom:0 always lands on the photo's bottom edge. */
+.partner__shops {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-end instead of the default stretch: the blue shop button keeps
+     its own 124px height instead of growing to match the taller
+     kooperation block, and both sit flush on the photo's bottom edge. */
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.shop-link {
+  flex: 1 1 200px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  gap: 1.1rem;
+  min-height: 124px;
+  padding: 1rem 1.25rem 1.35rem;
+  background: var(--cool-blue);
+  border-radius: 17px;
+  color: var(--white);
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.shop-link:hover {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+}
+
+/* Logo sits in the 1fr row so the label stays low, but the box gets an
+   EXPLICIT height. With height:100% on the image and an auto-height parent,
+   the percentage falls back to the image's intrinsic size and the card
+   inflates — which is what blew this up. */
+.shop-link__logo {
+  align-self: center;
+  width: 100%;
+  height: 55px;
+}
+
+.shop-link__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Kooperation block: sits next to the shop button, but on the white
+   background — the Pure_Logo.png is dark-on-light, so no blue card.
+   It stretches to the blue box's full height and spreads its content:
+   the label's top lines up with the top of the blue box, the logo's
+   bottom with the bottom of the box and the photo. */
+.partner__coop {
+  flex: 1 1 200px;
+  align-self: stretch;
+  display: grid;
+  justify-items: center;
+  align-content: space-between;
+  padding: 0;
+  /* Visual nudge: label and logo sit 5px lower than the flex row's edges.
+     Done with translate so it doesn't affect the layout around it. */
+  translate: 0 5px;
+  color: inherit;
+  font-size: var(--fs-body);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.partner__coop img {
+  max-width: 165px;
+  height: auto;
+}
+
+.partner__media img {
+  width: 100%;
+  aspect-ratio: 2048 / 1365;
+  object-fit: cover;
+  border-radius: 57px;
+}
+
+.partner__eyebrow { color: var(--steel-blue); }
+
+.partner__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.0125em;
+  line-height: 1.2;
+}
+
+.partner__text {
+  margin-top: 0.5rem;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+/* --------------------------------------------------------------------------
+   Page head (yellow hero band — inner pages)
+   -------------------------------------------------------------------------- */
+
+.page-head {
+  position: relative;
+  overflow: hidden;
+  background: var(--easy-yellow);
+  text-align: center;
+  padding-block: clamp(2.5rem, 6vw, 3.4rem);
+}
+
+/* The pattern art is drawn ~3x wider than the band, so the crop is always
+   taken from the middle of the artwork — no bare yellow at any viewport. */
+.page-head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--asset-pattern-gray);
+  background-repeat: no-repeat;
+  background-size: var(--pattern-zoom) auto;
+  background-position: var(--pattern-x) var(--pattern-y);
+  pointer-events: none;
+}
+
+.page-head .wrap { position: relative; }
+
+.page-head__title {
+  font-size: var(--fs-display);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.034em;
+  line-height: 1;
+  color: var(--cool-blue);
+}
+
+.page-head__sub {
+  margin-top: clamp(1rem, 2.5vw, 1.6rem);
+  max-width: 767px;
+  margin-inline: auto;
+  /* One step down the scale (was --fs-lead-lg): matches the hero's closing
+     line ("Den Tag hinter sich lassen…"). One shared class, so News,
+     Über uns and Impressum/Datenschutz all move together. */
+  font-size: var(--fs-lead);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--cool-blue);
+}
+
+/* Mist variant (Über uns). Swaps in the Crane Gray ball art — the yellow
+   band's pattern asset is toned for that field and reads yellow here. The
+   frame's offsets work out to the same crop values (--pattern-*), so only
+   colour and artwork change. */
+.page-head--mist { background: var(--mist-gray); }
+
+.page-head--mist::before { background-image: var(--asset-pattern-crane-gray); }
+
+/* --------------------------------------------------------------------------
+   Post (news page)
+   -------------------------------------------------------------------------- */
+
+.post {
+  padding-block: var(--section-pad);
+}
+
+/* Date reads as a quiet eyebrow above the headline, not a second headline */
+.post__date {
+  margin-bottom: 0.7rem;
+  font-size: var(--fs-eyebrow);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.post__title {
+  font-size: var(--fs-h2);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+/* Date, headline and lead read as one block. The top margin is matched by eye
+   to the date→headline gap above it: each element carries its own half-leading,
+   so equal margin values would NOT produce equal optical gaps. */
+.post__body {
+  max-width: 680px;
+  margin-top: 0.45rem;
+}
+
+.post__lead {
+  max-width: 46ch;
+  font-size: var(--fs-lead);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+/* Blue shape panel holding the event detail */
+.post__panel {
+  margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  padding: clamp(2rem, 4vw, 3rem);
+  color: var(--white);
+  background: var(--cool-blue);
+  border-radius: 40px;
+}
+
+.post__panel p {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.post__panel p + p { margin-top: 1.6em; }
+
+.post__list {
+  margin-top: clamp(1.75rem, 3.5vw, 2.25rem);
+  display: grid;
+  gap: 0.7rem;
+}
+
+.post__list li {
+  font-size: var(--fs-body-lg);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.post__meta {
+  margin-top: clamp(1.75rem, 3.5vw, 2.25rem);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.post__meta > * {
+  font-size: var(--fs-body-lg);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--easy-yellow);
+}
+
+.post__meta a { text-decoration: none; }
+.post__meta a:hover { text-decoration: underline; }
+
+/* Several events under each other: the list keeps one full section padding at
+   the top and bottom, neighbouring events share a single gap. */
+.post + .post { padding-top: 0; }
+
+/* Event photo. Sits between the lead and the blue panel, same measure as the
+   text column (.post__body), radius matched to the panel below it. */
+.post__media {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.post__media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+/* --------------------------------------------------------------------------
+   About: vision section (white field carrying the yellow ball pattern)
+   -------------------------------------------------------------------------- */
+
+.about-field {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Same artwork as --asset-hero-pattern, but placed unrotated in this frame,
+   so it's painted directly instead of via the nested-box construction. */
+.about-field__art {
+  position: absolute;
+  left: var(--about-pattern-x);
+  top: var(--about-pattern-y);
+  width: var(--about-pattern-w);
+  aspect-ratio: 4020 / 3450;
+  background: var(--asset-hero-pattern) center / 100% 100% no-repeat;
+  opacity: var(--about-pattern-opacity);
+  pointer-events: none;
+}
+
+.vision {
+  position: relative;
+  padding-block: var(--section-pad);
+}
+
+.vision__eyebrow { color: var(--steel-blue); }
+
+.vision__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.vision__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 673px) minmax(0, 470px);
+  justify-content: space-between;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  align-items: start;
+  margin-top: clamp(1.5rem, 3vw, 2.6rem);
+}
+
+.vision__media img {
+  width: 100%;
+  aspect-ratio: 673 / 449;
+  object-fit: cover;
+  border-radius: 65px;
+}
+
+/* 1.9 leading straight from the frame — deliberately airier than the
+   1.6–1.7 running text elsewhere. */
+.vision__text p {
+  font-size: var(--fs-body-lg);
+  font-weight: 500;
+  line-height: 1.9;
+}
+
+/* The frame separates the paragraphs with one blank line of the same leading */
+.vision__text p + p { margin-top: 1.9em; }
+
+/* --------------------------------------------------------------------------
+   About: team section (yellow)
+   -------------------------------------------------------------------------- */
+
+.team {
+  background: var(--easy-yellow);
+  color: var(--cool-blue);
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+}
+
+.team__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.team__text {
+  margin-top: clamp(1rem, 2.5vw, 1.5rem);
+  max-width: 62ch;
+  font-size: var(--fs-body-lg);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.team__members {
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  display: grid;
+  gap: clamp(2.75rem, 6.5vw, 5rem);
+}
+
+.team__member {
+  display: grid;
+  /* Sized so the portrait's bottom edge lands roughly level with the
+     end of the longest bio (Lukas) on desktop; all three share it. */
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.25rem);
+  align-items: start;
+}
+
+.team__portrait img {
+  width: 100%;
+  aspect-ratio: 372 / 488;
+  object-fit: cover;
+  border-radius: 36px;
+}
+
+.team__name {
+  font-size: var(--fs-lead-lg);
+  font-weight: 700;
+  font-style: italic;
+}
+
+.team__bio p {
+  /* 58ch + 1.5em paragraph spacing: measured so the last line of the
+     longest bio (Lukas) ends level with the portrait's bottom edge
+     at desktop width. */
+  margin-top: 1.5em;
+  max-width: 58ch;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   Booking band
+   -------------------------------------------------------------------------- */
+
+.booking-band {
+  position: relative;
+  overflow: hidden;
+  background: var(--cool-blue);
+  color: var(--white);
+  text-align: center;
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+
+.booking-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--asset-pattern-blue) center / cover no-repeat;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.booking-band .wrap { position: relative; }
+
+.booking-band__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.009em;
+  line-height: 1.1;
+}
+
+.booking-band__text {
+  margin-top: clamp(0.75rem, 2vw, 1.4rem);
+  font-size: var(--fs-body-lg);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.booking-band .btn { margin-top: clamp(1.5rem, 3vw, 2.4rem); }
+
+/* Light variant (Über uns): white field, blue text. Swaps in the Cool Blue
+   ball art at 10% — inheriting the regular band's pattern would be invisible
+   on white, since that asset is drawn for the blue field. */
+.booking-band--light {
+  background: var(--white);
+  color: var(--cool-blue);
+}
+
+.booking-band--light::before {
+  background-image: var(--asset-pattern-cool-blue);
+  opacity: 0.1;
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  position: relative;
+  background: var(--cool-blue) var(--asset-footer-shape) center / cover no-repeat;
+  color: var(--white);
+}
+
+.site-footer__inner {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.75rem, 4vw, 2.5rem);
+  padding-block: clamp(2.5rem, 5vw, 3rem);
+}
+
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2.2rem);
+}
+
+.footer-nav a {
+  /* Two steps up from the original 0.76rem (past --fs-btn), which lands it
+     on the body token — so it's now on the site scale. */
+  font-size: var(--fs-body);
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.footer-nav a:hover { color: var(--easy-yellow); }
+
+.site-footer__brand img {
+  width: 176px;
+  height: auto;
+}
+
+.site-footer__bottom {
+  border-top: 1px solid rgb(255 255 255 / 0.2);
+  padding-block: 1rem;
+  text-align: center;
+}
+
+.site-footer__bottom p {
+  font-size: 0.68rem;
+  font-weight: 400;
+}
+
+.site-footer__bottom a { text-decoration: underline; }
+
+/* --------------------------------------------------------------------------
+   Legal page (Impressum & Datenschutz) — deliberately plain
+   -------------------------------------------------------------------------- */
+
+.legal {
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+/* Narrower reading measure than the site wrap */
+.legal__inner {
+  max-width: 760px;
+}
+
+.legal__article + .legal__article {
+  margin-top: clamp(3rem, 7vw, 5rem);
+  padding-top: clamp(2.5rem, 6vw, 4rem);
+  border-top: 1px solid rgb(19 51 109 / 0.15);
+}
+
+.legal__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.legal h3 {
+  margin-top: clamp(1.75rem, 3.5vw, 2.4rem);
+  font-size: var(--fs-lead);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.legal p,
+.legal li,
+.legal address {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.legal p,
+.legal address { margin-top: 0.75em; }
+
+.legal address { font-style: normal; }
+
+.legal ul {
+  margin-top: 0.75em;
+  padding-left: 1.2em;
+  list-style: disc;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.legal a {
+  color: var(--steel-blue);
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .post__panel {
+    /* The exported shape distorts badly when squashed — solid blue instead */
+    background-image: none;
+    border-radius: 32px;
+  }
+
+  .post__media img { border-radius: 32px; }
+
+  .strip__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+
+  .partner__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Nothing to align to once stacked — back into normal flow */
+  .partner__body { padding-bottom: 0; }
+
+  .partner__shops {
+    position: static;
+    margin-top: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .partner__media img { border-radius: 36px; }
+
+  .vision__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vision__media img { border-radius: 36px; }
+}
+
+@media (max-width: 760px) {
+  /* Desktop section padding leaves a lot of empty scroll on a phone —
+     tighten the vertical rhythm site-wide via the token. */
+  :root {
+    --section-pad: clamp(3rem, 12vw, 4.5rem);
+  }
+
+  /* Belt-and-braces against sideways scroll from the oversized pattern art.
+     All pattern containers already clip, this catches anything else. */
+  html, body { overflow-x: clip; }
+
+  /* Hero art, mobile: the pattern caused layout chaos on small screens,
+     so it's simply hidden here. The hero keeps its photo + overlay. */
+  .hero__pattern { display: none; }
+
+  /* Same story for the side peeks: on a narrow screen they'd sit under
+     the text instead of beside it. */
+  .pattern-field__side { display: none; }
+
+  .nav-toggle__label { display: block; }
+
+  .main-nav {
+    display: none;
+    width: 100%;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    padding-bottom: 1.25rem;
+  }
+
+  /* Full-width rows with generous padding = proper thumb targets */
+  .main-nav a {
+    display: block;
+    width: 100%;
+    padding: 0.6rem 0;
+    font-size: 1.25rem;
+  }
+
+  .nav-toggle:checked ~ .main-nav { display: block; }
+
+  .site-header__inner {
+    flex-wrap: wrap;
+    padding-block: 1rem;
+    min-height: 0;
+  }
+
+  .site-header__logo img { width: 150px; }
+
+  .post__panel p,
+  .post__list li,
+  .post__meta > *,
+  .vision__text p,
+  .team__text,
+  .team__bio p {
+    font-size: 0.9rem;
+  }
+
+  /* Portrait above the bio once side-by-side gets too tight */
+  .team__member {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+
+  .team__portrait {
+    width: 100%;
+    max-width: 240px;
+  }
+
+  .hero__cta .btn { width: 100%; }
+
+  /* The 48–65px desktop radii read cartoonish once images shrink to
+     phone width — scale them down together. */
+  .partner__media img,
+  .vision__media img,
+  .team__portrait img { border-radius: 28px; }
+
+  /* Slightly smaller, comfier buttons on touch */
+  .btn {
+    font-size: 1.15rem;
+    padding: 0.8rem 1.8rem;
+  }
+
+  /* Centered sections: cap the button instead of letting it float tiny */
+  .booking-band .btn,
+  .intro .btn { width: min(100%, 20rem); }
+
+  /* Footer links: row/column gaps plus padding so each link is tappable */
+  .footer-nav ul { gap: 0.35rem 1.4rem; }
+
+  .footer-nav a {
+    display: inline-block;
+    padding: 0.35rem 0.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header__logo img { width: 128px; }
+
+  /* The <br> line breaks were set for desktop measure; on a narrow screen
+     they force ragged two-word lines — let the text wrap naturally. */
+  .hero__lead br,
+  .hero__closer br,
+  .page-head__sub br,
+  .booking-band__text br,
+  .team__text br { display: none; }
+
+  .post__panel {
+    padding: 1.5rem 1.25rem;
+    border-radius: 24px;
+  }
+
+  .post__media img { border-radius: 24px; }
+
+  .partner__media img,
+  .vision__media img,
+  .team__portrait img { border-radius: 22px; }
+
+  .shop-link,
+  .partner__coop { flex-basis: 100%; }
+
+  .hero__closer { margin-top: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Phones held sideways (landscape) are wider than 760px, so the rule
+   above doesn't catch them — this one does: any short screen loses the
+   hero pattern too. Normal desktop windows are taller than 500px. */
+@media (max-height: 500px) {
+  .hero__pattern { display: none; }
+}

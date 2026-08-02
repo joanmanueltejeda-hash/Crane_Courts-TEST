@@ -1,0 +1,11 @@
+# Netlify build settings for Crane Courts.
+# Diese Datei gehört ganz oben ins Repo, neben den Ordner Crane_Courts_Website.
+#
+# base    = Ordner, in dem die Website liegt (dort steht die package.json)
+# command = baut die News-Seite aus dem events-Ordner
+# publish = fertiger Ordner, den Netlify online stellt (liegt in base)
+
+[build]
+  base = "Crane_Courts_Website"
+  command = "npx @11ty/eleventy"
+  publish = "_site"
