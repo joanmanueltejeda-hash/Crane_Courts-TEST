@@ -936,8 +936,17 @@ ul { list-style: none; padding: 0; }
   color: var(--easy-yellow);
 }
 
-.post__meta a { text-decoration: none; }
-.post__meta a:hover { text-decoration: underline; }
+/* Address reads as a link at a glance, like the booking links: underlined,
+   with the same ↗ the „Platz buchen“ links carry. The underline is the resting
+   state here, so hovering drops it. */
+.post__meta a {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.06em;
+}
+
+.post__meta a:hover,
+.post__meta a:focus-visible { text-decoration: none; }
 
 /* Several events under each other: the list keeps one full section padding at
    the top and bottom, neighbouring events share a single gap. */
