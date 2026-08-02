@@ -899,12 +899,12 @@ ul { list-style: none; padding: 0; }
      --post-panel-w   width of a panel WITH a photo
      --post-photo-w   fixed width of the photo
      --post-inset     padding on all sides and the gap to the text
-     A panel without a photo is exactly as wide as the text column of a panel
-     with one, so the calc below subtracts photo, gap and padding. */
+     A panel without a photo is sized so its TEXT has the same measure as the
+     text next to a photo: subtract the photo and the gap, keep the padding. */
   --post-panel-w: 70%;
   --post-photo-w: 340px;
   --post-inset: clamp(1.5rem, 3vw, 2rem);
-  max-width: calc(var(--post-panel-w) - var(--post-photo-w) - 3 * var(--post-inset));
+  max-width: calc(var(--post-panel-w) - var(--post-photo-w) - var(--post-inset));
   margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
   padding: clamp(2rem, 4vw, 3rem);
   color: var(--white);
