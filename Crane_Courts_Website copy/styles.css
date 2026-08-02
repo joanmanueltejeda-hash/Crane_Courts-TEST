@@ -952,8 +952,16 @@ ul { list-style: none; padding: 0; }
   color: var(--easy-yellow);
 }
 
-.post__meta a { text-decoration: none; }
-.post__meta a:hover { text-decoration: underline; }
+/* Address links out to Google Maps, so it carries an underline and the same
+   arrow as the booking links. The non breaking space keeps the arrow attached
+   to the last word when the address wraps. */
+.post__meta a {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: from-font;
+}
+
+.post__meta a:hover { text-decoration-thickness: 2px; }
 
 /* Several events under each other: the list keeps one full section padding at
    the top and bottom, neighbouring events share a single gap. */
