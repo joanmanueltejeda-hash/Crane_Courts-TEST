@@ -911,7 +911,9 @@ ul { list-style: none; padding: 0; }
     (var(--post-panel-w) - var(--post-photo-w) - var(--post-inset))
   );
   margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
-  padding: clamp(2rem, 4vw, 3rem);
+  /* Same inset for both variants, so text sits the same distance from the
+     panel edge whether the event has a photo or not. */
+  padding: var(--post-inset);
   color: var(--white);
   background: var(--cool-blue);
   border-radius: 40px;
@@ -977,7 +979,6 @@ ul { list-style: none; padding: 0; }
    To resize the photo, change --post-photo-w. Nothing else needs touching. */
 .post__panel--media {
   max-width: var(--post-panel-w);
-  padding: var(--post-inset);
   display: grid;
   grid-template-columns: var(--post-photo-w) minmax(0, 1fr);
   gap: var(--post-inset);
