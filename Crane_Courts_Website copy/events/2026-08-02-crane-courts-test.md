@@ -3,6 +3,8 @@ title: Crane Courts Test
 date: 2026-08-06
 time: 14:00
 lead: Test von CMS :)
+image: /Images/Events/mivisionlogo-02.png
+imageAlt: Hallo, geht des hier?
 highlights:
   - Padel spielen
   - Padel Training
