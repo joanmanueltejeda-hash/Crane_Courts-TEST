@@ -61,7 +61,7 @@ permalink: /news.html
   </section>
 
   {%- for event in collections.events %}
-  <article class="post">
+  <article class="post{% if event.data.image %} post--media{% endif %}">
     <div class="wrap">
 
       <p class="post__date">
@@ -76,34 +76,37 @@ permalink: /news.html
           </p>
         {%- endif %}
 
-        {%- if event.data.image %}
-          <figure class="post__media">
-            <img src="{{ event.data.image }}"
-                 alt="{{ event.data.imageAlt if event.data.imageAlt else event.data.title }}" loading="lazy">
-          </figure>
-        {%- endif %}
+          <div class="post__panel{% if event.data.image %} post__panel--media{% endif %}">
 
-          <div class="post__panel">
-            {{ event.templateContent | safe }}
-
-            {%- if event.data.highlights %}
-            <ul class="post__list">
-              {%- for item in event.data.highlights %}
-              <li>{{ item }}</li>
-              {%- endfor %}
-            </ul>
+            {%- if event.data.image %}
+            <figure class="post__media">
+              <img src="{{ event.data.image }}"
+                   alt="{{ event.data.imageAlt if event.data.imageAlt else event.data.title }}" loading="lazy">
+            </figure>
             {%- endif %}
 
-            <div class="post__meta">
-              <p><time datetime="{{ event.data.date | dateISO }}{% if event.data.time %}T{{ event.data.time }}{% endif %}">{{ event.data.date | dateShort }}{% if event.data.time %} – Beginn um {{ event.data.time }}{% endif %}</time></p>
-              {%- if event.data.address %}
-              <p>
-                <a href="https://www.google.com/maps/search/?api=1&amp;query={{ event.data.address | urlencode }}"
-                   target="_blank" rel="noopener">
-                  {{ event.data.address }}
-                </a>
-              </p>
+            <div class="post__panel-body">
+              {{ event.templateContent | safe }}
+
+              {%- if event.data.highlights %}
+              <ul class="post__list">
+                {%- for item in event.data.highlights %}
+                <li>{{ item }}</li>
+                {%- endfor %}
+              </ul>
               {%- endif %}
+
+              <div class="post__meta">
+                <p><time datetime="{{ event.data.date | dateISO }}{% if event.data.time %}T{{ event.data.time }}{% endif %}">{{ event.data.date | dateShort }}{% if event.data.time %} – Beginn um {{ event.data.time }}{% endif %}</time></p>
+                {%- if event.data.address %}
+                <p>
+                  <a href="https://www.google.com/maps/search/?api=1&amp;query={{ event.data.address | urlencode }}"
+                     target="_blank" rel="noopener">
+                    {{ event.data.address }}
+                  </a>
+                </p>
+                {%- endif %}
+              </div>
             </div>
           </div>
       </div>

@@ -943,18 +943,30 @@ ul { list-style: none; padding: 0; }
    the top and bottom, neighbouring events share a single gap. */
 .post + .post { padding-top: 0; }
 
-/* Event photo. Sits between the lead and the blue panel, same measure as the
-   text column (.post__body), radius matched to the panel below it. */
-.post__media {
-  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+/* Event photo. Lives INSIDE the blue panel: picture left, text right. Only
+   events that actually carry a photo get the two column treatment, everything
+   else keeps the single text column exactly as before. The wider measure below
+   buys the text column back the room the picture takes. */
+.post--media .post__body { max-width: 980px; }
+
+.post__panel--media {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
 }
 
+.post__media { margin: 0; }
+
+/* No fixed aspect ratio: the client uploads whatever they have and nothing is
+   cropped, except very tall portraits, which are capped by max-height. */
 .post__media img {
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 2;
+  height: auto;
+  max-height: 30rem;
   object-fit: cover;
-  border-radius: 40px;
+  border-radius: 24px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1264,7 +1276,8 @@ ul { list-style: none; padding: 0; }
     border-radius: 32px;
   }
 
-  .post__media img { border-radius: 32px; }
+  /* Panel too narrow for two columns: photo on top, text below */
+  .post__panel--media { grid-template-columns: minmax(0, 1fr); }
 
   .strip__grid {
     grid-template-columns: minmax(0, 1fr);
@@ -1405,8 +1418,6 @@ ul { list-style: none; padding: 0; }
     padding: 1.5rem 1.25rem;
     border-radius: 24px;
   }
-
-  .post__media img { border-radius: 24px; }
 
   .partner__media img,
   .vision__media img,
