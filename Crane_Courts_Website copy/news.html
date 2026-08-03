@@ -8,13 +8,9 @@ permalink: /news.html
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>News – Crane Courts</title>
 <meta name="description" content="Alle Neuigkeiten rund um Crane Courts: Updates zum Padelplatz und anstehende Events in Kranenburg.">
-<link rel="icon" type="image/png" sizes="512x512" href="Images/CraneCourts_Favicon.png">
-<link rel="apple-touch-icon" href="Images/CraneCourts_AppleTouch.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<!-- TODO: replace every PLAYTOMIC_URL with your club's Playtomic booking link -->
 
 <!-- Die Events auf dieser Seite kommen aus dem Ordner "events". Jede Datei
      dort ist ein Event und wird über Pages CMS gepflegt. Am Aufbau unten
@@ -40,7 +36,7 @@ permalink: /news.html
         <li><a href="ueber-uns.html">Über uns</a></li>
         <li><a href="news.html" aria-current="page">News</a></li>
         <li>
-          <a class="is-booking" href="PLAYTOMIC_URL" target="_blank" rel="noopener">
+          <a class="is-booking" href="https://playtomic.com/clubs/crane-courts-padel" target="_blank" rel="noopener">
             Platz buchen ↗
           </a>
         </li>
@@ -78,39 +74,35 @@ permalink: /news.html
           </p>
         {%- endif %}
 
-          <div class="post__panel{% if event.data.image %} post__panel--media{% endif %}">
+        {%- if event.data.image %}
+          <figure class="post__media">
+            <img src="{{ event.data.image }}"
+                 alt="{{ event.data.imageAlt if event.data.imageAlt else event.data.title }}" loading="lazy">
+          </figure>
+        {%- endif %}
 
-            {%- if event.data.image %}
-            <figure class="post__media">
-              <img src="{{ event.data.image }}"
-                   alt="{{ event.data.imageAlt if event.data.imageAlt else event.data.title }}" loading="lazy">
-            </figure>
+          <div class="post__panel">
+            {{ event.templateContent | safe }}
+
+            {%- if event.data.highlights %}
+            <ul class="post__list">
+              {%- for item in event.data.highlights %}
+              <li>{{ item }}</li>
+              {%- endfor %}
+            </ul>
             {%- endif %}
 
-            <div class="post__panel-body">
-              {{ event.templateContent | safe }}
-
-              {%- if event.data.highlights %}
-              <ul class="post__list">
-                {%- for item in event.data.highlights %}
-                <li>{{ item }}</li>
-                {%- endfor %}
-              </ul>
+            <div class="post__meta">
+              <p><time datetime="{{ event.data.date | dateISO }}{% if event.data.time %}T{{ event.data.time }}{% endif %}">{{ event.data.date | dateShort }}{% if event.data.time %} – Beginn um {{ event.data.time }}{% endif %}</time></p>
+              {%- if event.data.address %}
+              <p>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query={{ event.data.address | urlencode }}"
+                   target="_blank" rel="noopener">
+                  {{ event.data.address }}
+                </a>
+              </p>
               {%- endif %}
-
-              <div class="post__meta">
-                <p><time datetime="{{ event.data.date | dateISO }}{% if event.data.time %}T{{ event.data.time }}{% endif %}">{{ event.data.date | dateShort }}{% if event.data.time %} – Beginn um {{ event.data.time }}{% endif %}</time></p>
-                {%- if event.data.address %}
-                <p>
-                  <a href="https://www.google.com/maps/search/?api=1&amp;query={{ event.data.address | urlencode }}"
-                     target="_blank" rel="noopener">
-                    {{ event.data.address }}&nbsp;↗
-                  </a>
-                </p>
-                {%- endif %}
-              </div>
             </div>
-
           </div>
       </div>
     </div>
@@ -135,7 +127,7 @@ permalink: /news.html
         Buch dir einen Platz und lern uns kennen<br>
         wir freuen uns auf dich.
       </p>
-      <a class="btn" href="PLAYTOMIC_URL" target="_blank" rel="noopener">Platz buchen ↗</a>
+      <a class="btn" href="https://playtomic.com/clubs/crane-courts-padel" target="_blank" rel="noopener">Platz buchen ↗</a>
     </div>
   </section>
 
@@ -151,7 +143,7 @@ permalink: /news.html
         <li><a href="news.html">News</a></li>
         <li><a href="impressum.html">Impressum</a></li>
         <li><a href="impressum.html#datenschutz">Datenschutzerklärung</a></li>
-        <li><a href="PLAYTOMIC_URL" target="_blank" rel="noopener">Platz buchen (Playtomic) ↗</a></li>
+        <li><a href="https://playtomic.com/clubs/crane-courts-padel" target="_blank" rel="noopener">Platz buchen (Playtomic) ↗</a></li>
       </ul>
     </nav>
 

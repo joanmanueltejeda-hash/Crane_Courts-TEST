@@ -5,17 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Impressum &amp; Datenschutz – Crane Courts</title>
 <meta name="description" content="Impressum und Datenschutzerklärung von Crane Courts, dem Padelplatz in Kranenburg.">
-<link rel="icon" type="image/png" sizes="512x512" href="Images/CraneCourts_Favicon.png">
-<link rel="apple-touch-icon" href="Images/CraneCourts_AppleTouch.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- TODO vor dem Livegang, es sind nur noch zwei Dinge offen:
-     1. Jedes PLAYTOMIC_URL durch den echten Playtomic-Buchungslink ersetzen.
-     2. Umsatzsteuer-ID eintragen: der Block weiter unten ist auskommentiert,
-        Kommentarzeichen entfernen und die Nummer einsetzen.
-     Alle anderen Platzhalter sind ausgefuellt. -->
+<!-- TODO: fill in every [PLATZHALTER] below before going live -->
 
 <header class="site-header">
   <div class="wrap site-header__inner">
@@ -37,7 +31,7 @@
         <li><a href="ueber-uns.html">Über uns</a></li>
         <li><a href="news.html">News</a></li>
         <li>
-          <a class="is-booking" href="PLAYTOMIC_URL" target="_blank" rel="noopener">
+          <a class="is-booking" href="https://playtomic.com/clubs/crane-courts-padel" target="_blank" rel="noopener">
             Platz buchen ↗
           </a>
         </li>
@@ -91,16 +85,13 @@
             Registernummer: HRB 113304
           </p>
 
-          <!-- Umsatzsteuer-ID: Block ist bewusst auskommentiert, damit auf der
-               Seite kein leerer Platzhalter steht. Sobald die Nummer da ist:
-               die Zeile darunter und die Zeile darueber entfernen und die
-               Nummer statt [NUMMER] eintragen.
+          <!-- TODO: Nur ausfüllen, wenn eine USt-IdNr. vorhanden ist.
+               Ohne USt-IdNr. diesen Block löschen. -->
           <h3>Umsatzsteuer-ID</h3>
           <p>
             Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br>
             DE&nbsp;[NUMMER]
           </p>
-          -->
 
           <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
           <p>
@@ -161,45 +152,27 @@
             rein informative Seite: Es gibt keine Nutzerkonten, keine
             Formulare, keine Analyse-, Tracking- oder Marketing-Tools.
           </p>
-          <p>
-            Eine automatisierte Entscheidungsfindung einschließlich Profiling
-            nach Art. 22 DSGVO findet nicht statt. Du bist weder gesetzlich
-            noch vertraglich verpflichtet, uns personenbezogene Daten
-            bereitzustellen, um diese Website zu nutzen.
-          </p>
 
           <h3>3. Hosting und Server-Logfiles</h3>
+          <!-- TODO: Hosting-Anbieter mit Name und Anschrift eintragen und
+               prüfen, dass ein Auftragsverarbeitungsvertrag (AVV) besteht.
+               Speicherdauer der Logs beim Hoster erfragen und eintragen. -->
           <p>
-            Diese Website wird gehostet bei Vercel Inc., 440 N Barranca Ave
-            #4133, Covina, CA 91723, USA. Beim Aufruf der Website erhebt der
-            Hoster automatisch Informationen in sogenannten Server-Logfiles,
-            die dein Browser übermittelt: IP-Adresse, Datum und Uhrzeit des
-            Zugriffs, aufgerufene Datei, übertragene Datenmenge, Browsertyp
-            und -version, Betriebssystem sowie die zuvor besuchte Seite
+            Diese Website wird gehostet bei: [HOSTING-ANBIETER, ANSCHRIFT].
+            Beim Aufruf der Website erhebt der Hoster automatisch
+            Informationen in sogenannten Server-Logfiles, die dein Browser
+            übermittelt: IP-Adresse, Datum und Uhrzeit des Zugriffs,
+            aufgerufene Datei, übertragene Datenmenge, Browsertyp und
+            -version, Betriebssystem sowie die zuvor besuchte Seite
             (Referrer-URL).
           </p>
           <p>
             Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f
             DSGVO. Unser berechtigtes Interesse liegt in der sicheren,
             stabilen Bereitstellung der Website und der Abwehr von Angriffen.
-            Die Logfiles werden nach spätestens 30 Tagen gelöscht.
-          </p>
-          <p>
-            Mit Vercel haben wir einen Vertrag über Auftragsverarbeitung nach
-            Art. 28 DSGVO geschlossen. Diesen findest du unter
-            <a href="https://vercel.com/legal/dpa" target="_blank" rel="noopener">vercel.com/legal/dpa</a>.
-          </p>
-          <p>
-            Da Vercel seinen Sitz in den USA hat, werden dabei
-            personenbezogene Daten in ein Drittland außerhalb der
-            Europäischen Union übermittelt. Vercel ist nach dem EU-US Data
-            Privacy Framework zertifiziert; ergänzend stützt sich die
-            Übermittlung auf die Standardvertragsklauseln der
-            EU-Kommission nach Art. 46 Abs. 2 lit. c DSGVO. Trotz dieser
-            Garantien lässt sich nicht vollständig ausschließen, dass
-            US-Behörden auf die Daten zugreifen. Weitere Informationen findest
-            du in der Datenschutzerklärung von Vercel unter
-            <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">vercel.com/legal/privacy-policy</a>.
+            Die Logfiles werden nach [SPEICHERDAUER, z.&nbsp;B. 7 Tagen]
+            gelöscht. Mit unserem Hoster haben wir einen Vertrag über
+            Auftragsverarbeitung nach Art. 28 DSGVO geschlossen.
           </p>
 
           <h3>4. Cookies</h3>
@@ -243,6 +216,8 @@
           </p>
 
           <h3>8. SSL-/TLS-Verschlüsselung</h3>
+          <!-- TODO: sicherstellen, dass die Seite nur über HTTPS erreichbar
+               ist (Zertifikat + Weiterleitung von http auf https). -->
           <p>
             Diese Website nutzt aus Sicherheitsgründen eine SSL- bzw.
             TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennst du am
@@ -270,28 +245,9 @@
             Informationsfreiheit Nordrhein-Westfalen (LDI NRW).
           </p>
 
-          <h3>10. Widerspruchsrecht (Art. 21 DSGVO)</h3>
+          <h3>10. Stand dieser Datenschutzerklärung</h3>
           <p>
-            Wenn wir Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO
-            verarbeiten, also auf Grundlage unseres berechtigten Interesses,
-            hast du das Recht, aus Gründen, die sich aus deiner besonderen
-            Situation ergeben, jederzeit Widerspruch gegen diese Verarbeitung
-            einzulegen. Das betrifft auf dieser Website die Server-Logfiles
-            nach Ziffer 3 sowie die Bearbeitung von Anfragen nach Ziffer 6.
-          </p>
-          <p>
-            Legst du Widerspruch ein, verarbeiten wir die betroffenen Daten
-            nicht mehr, es sei denn, wir können zwingende schutzwürdige Gründe
-            nachweisen, die deine Interessen, Rechte und Freiheiten
-            überwiegen, oder die Verarbeitung dient der Geltendmachung,
-            Ausübung oder Verteidigung von Rechtsansprüchen. Für deinen
-            Widerspruch genügt eine formlose Nachricht an
-            <a href="mailto:info@cranecourts.com">info@cranecourts.com</a>.
-          </p>
-
-          <h3>11. Stand dieser Datenschutzerklärung</h3>
-          <p>
-            Stand: August 2026. Wir passen diese Erklärung an, sobald sich die
+            Stand: Juli 2026. Wir passen diese Erklärung an, sobald sich die
             Website oder die Rechtslage ändert, etwa wenn künftig
             Analyse-Tools, ein eingebettetes Buchungs-Widget oder eine
             eingebettete Karte hinzukommen.
@@ -314,7 +270,7 @@
         <li><a href="news.html">News</a></li>
         <li><a href="impressum.html">Impressum</a></li>
         <li><a href="impressum.html#datenschutz">Datenschutzerklärung</a></li>
-        <li><a href="PLAYTOMIC_URL" target="_blank" rel="noopener">Platz buchen (Playtomic) ↗</a></li>
+        <li><a href="https://playtomic.com/clubs/crane-courts-padel" target="_blank" rel="noopener">Platz buchen (Playtomic) ↗</a></li>
       </ul>
     </nav>
 
