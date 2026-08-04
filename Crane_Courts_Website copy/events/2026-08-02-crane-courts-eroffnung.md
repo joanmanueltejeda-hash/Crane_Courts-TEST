@@ -1,9 +1,10 @@
 ---
 title: Crane Courts Eröffnung
-date: 2026-08-02
+date: 2026-08-09
 time: 11:00
 lead: "Es ist soweit: Crane Courts öffnet seine Türen und wir laden euch
   herzlich zur Eröffnungsfeier ein!"
+image: /Images/Events/tempimagezfijyo.jpg
 highlights:
   - Frei Getränke
   - Gewinnspiele
