@@ -6,8 +6,8 @@ lead: "Es ist soweit: Crane Courts öffnet seine Türen und wir laden euch
   herzlich zur Eröffnungsfeier ein!"
 image: /Images/Events/tempimagezfijyo.jpg
 highlights:
-  - Frei Getränke
-  - Gewinnspiele
+  - Freigetränke
+  - Gewinnspiel
   - Musik
 address: Am Sportzentrum 4, 47559 Kranenburg
 ---
